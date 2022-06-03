@@ -216,7 +216,7 @@ function informAllSubscribersAboutActivity(
     switch ($articleType) {
         case ArticleType::Game:
             $gameData = getGameData($articleID);
-            $subscribers = getSubscribersOfGameWall($articleID);
+            $subscribers = getSubscribersOfGame($articleID);
             $articleTitle = $gameData['Title'] . ' (' . $gameData['ConsoleName'] . ')';
             $urlTarget = "game/$articleID";
             break;
