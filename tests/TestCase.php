@@ -20,6 +20,11 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use SeedsUsers;
 
+    /**
+     * Indicates whether the default seeder should run before each test.
+     */
+    // protected bool $seed = true;
+
     protected function setUp(): void
     {
         parent::setUp();

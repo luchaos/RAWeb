@@ -27,7 +27,7 @@ class AchievementFactory extends Factory
     public function definition(): array
     {
         return [
-            'GameID' => 0,
+            'GameID' => 1,
             'Title' => ucwords(fake()->words(2, true)),
             'Description' => fake()->sentence(),
             'MemAddr' => '0x000000',

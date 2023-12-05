@@ -8,6 +8,7 @@ use App\Models\Achievement;
 use App\Models\Game;
 use App\Models\StaticData;
 use App\Models\System;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -22,20 +23,20 @@ class HomeTest extends TestCase
 
     public function testItRendersPageWithStaticData(): void
     {
+        $user = User::factory()->create();
+        $game = Game::factory()
+            ->for(System::factory()->create())
+            ->create();
+        $achievement = Achievement::factory()->for($game)->create();
+
+        dd($achievement);
+
         /** @var StaticData $staticData */
-        $staticData = StaticData::factory()->create();
-        /** @var System $system */
-        $system = System::factory()->create();
-        /** @var Game $game */
-        $game = Game::factory()->create([
-            'ID' => $staticData->LastCreatedGameID,
-            'ConsoleID' => $system->ID,
-        ]);
-        /** @var Achievement $achievement */
-        $achievement = Achievement::factory()->create([
-            'ID' => $staticData->LastCreatedAchievementID,
-            'GameID' => $staticData->LastCreatedGameID,
-        ]);
+        StaticData::factory()
+            ->usingGame($game)
+            ->usingUser($user)
+            ->usingAchievement($achievement)
+            ->create();
 
         $this->get('/')->assertSuccessful()
             ->assertSee('Achievement of the Week')
