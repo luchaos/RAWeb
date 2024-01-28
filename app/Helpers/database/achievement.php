@@ -167,8 +167,10 @@ function UploadNewAchievement(
     $isEventGame = $consoleName == 'Events';
     $userPermissions = getUserPermissions($author);
 
-    // Prevent <= registered users from uploading or modifying achievements
-    if ($userPermissions < Permissions::JuniorDeveloper) {
+    $user = request()->user();
+
+    // Prevent non-developers from uploading or modifying achievements
+    if ($user->cannot('develop')) {
         $errorOut = "You must be a developer to perform this action! Please drop a message in the forums to apply.";
 
         return false;

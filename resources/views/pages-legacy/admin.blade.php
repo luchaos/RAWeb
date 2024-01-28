@@ -22,6 +22,8 @@ if ($action === 'achievement-ids') {
     $message = $achievementIds->implode(', ');
 }
 
+// TODO migrate to filament player achievements management
+
 if ($action === 'unlocks') {
     $achievementIDs = request()->query('a');
     $startTime = request()->query('s');

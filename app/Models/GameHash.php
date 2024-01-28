@@ -131,7 +131,7 @@ class GameHash extends BaseModel
      */
     public function system(): BelongsTo
     {
-        return $this->belongsTo(System::class);
+        return $this->belongsTo(System::class, 'system_id');
     }
 
     /**

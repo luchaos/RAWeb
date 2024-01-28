@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Enums\Permissions;
 use App\Models\AchievementSetClaim;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -15,7 +15,9 @@ class AchievementSetClaimPolicy
 
     public function manage(User $user): bool
     {
-        return $user->getAttribute('Permissions') >= Permissions::JuniorDeveloper;
+        return $user->hasAnyRole([
+            Role::MODERATOR,
+        ]);
     }
 
     public function view(User $user, AchievementSetClaim $achievementSetClaim): bool

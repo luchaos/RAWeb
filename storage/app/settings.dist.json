@@ -13,7 +13,7 @@
             "abilities": "viewLogViewer"
         },
         {
-            "label": "Horizon Queues",
+            "label": "Queues",
             "route": "horizon.index",
             "abilities": "viewHorizon"
         },

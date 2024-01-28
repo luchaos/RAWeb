@@ -7,12 +7,19 @@ namespace App\Platform\Concerns;
 use App\Models\Achievement;
 use App\Models\Leaderboard;
 use App\Models\MemoryNote;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait ActsAsDeveloper
 {
     public static function bootActsAsDeveloper(): void
     {
+    }
+
+    public function isJuniorDeveloper(): bool
+    {
+        return $this->hasAnyRole([Role::DEVELOPER_JUNIOR])
+            && !$this->hasAnyRole([Role::DEVELOPER, Role::DEVELOPER_STAFF]);
     }
 
     // == accessors

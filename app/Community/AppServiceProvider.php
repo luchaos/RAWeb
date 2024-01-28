@@ -26,6 +26,7 @@ use App\Community\Components\UserRecentlyPlayed;
 use App\Models\AchievementComment;
 use App\Models\AchievementSetClaim;
 use App\Models\Comment;
+use App\Models\Event;
 use App\Models\Forum;
 use App\Models\ForumCategory;
 use App\Models\ForumTopic;
@@ -96,6 +97,7 @@ class AppServiceProvider extends ServiceProvider
 
         AchievementComment::disableSearchSyncing();
         Comment::disableSearchSyncing();
+        Event::disableSearchSyncing();
         Forum::disableSearchSyncing();
         ForumCategory::disableSearchSyncing();
         ForumTopic::disableSearchSyncing();

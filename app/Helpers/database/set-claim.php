@@ -511,6 +511,7 @@ function getExpiringClaim(string $username): array
 
 /**
  * Gets the number of claims a user is allowed to have based on their permission
+ * @deprecated TODO refactor to $user->claimsAvailable())
  */
 function permissionsToClaim(int $permissions): int
 {

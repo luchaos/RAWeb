@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Enums\Permissions;
 use App\Models\News;
 use App\Models\Role;
 use App\Models\User;
@@ -16,12 +15,10 @@ class NewsPolicy
 
     public function manage(User $user): bool
     {
-        return $user->getAttribute('Permissions') >= Permissions::Developer;
-        // return $user->hasAnyRole([
-        //     // Role::ADMINISTRATOR,
-        //     Role::MODERATOR,
-        //     Role::NEWS_MANAGER,
-        // ]);
+        return $user->hasAnyRole([
+            Role::MODERATOR,
+            Role::NEWS_MANAGER,
+        ]);
     }
 
     public function viewAny(?User $user): bool
@@ -31,7 +28,10 @@ class NewsPolicy
 
     public function view(?User $user, News $news): bool
     {
-        return true;
+        return $user->hasAnyRole([
+            Role::MODERATOR,
+            Role::NEWS_MANAGER,
+        ]);
     }
 
     public function create(User $user): bool

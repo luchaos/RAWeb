@@ -12,6 +12,11 @@ class PlayerAchievementPolicy
 {
     use HandlesAuthorization;
 
+    public function manage(User $user): bool
+    {
+        return false;
+    }
+
     public function viewAny(?User $user, ?User $player = null): bool
     {
         if ($user && $player && $user->is($player)) {

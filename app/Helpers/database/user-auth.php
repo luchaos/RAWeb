@@ -39,21 +39,20 @@ function authenticateForConnect(?string $username, ?string $pass = null, ?string
             'Success' => false,
             'Status' => 401,
             'Code' => 'invalid_credentials',
-            'Error' => $tokenProvided ?
-                'Invalid user/token combination.' :
-                'Invalid user/password combination. Please try again.',
+            'Error' => $tokenProvided
+                ? 'Invalid user/token combination.'
+                : 'Invalid user/password combination. Please try again.',
         ];
     }
 
-    $permissions = (int) $user->getAttribute('Permissions');
-    if ($permissions < Permissions::Registered) {
+    if (!$user->hasVerifiedEmail() || $user->isBanned()) {
         return [
             'Success' => false,
             'Status' => 403,
             'Code' => 'access_denied',
-            'Error' => ($permissions === Permissions::Unregistered) ?
-                'Access denied. Please verify your email address.' :
-                'Access denied.',
+            'Error' => $user->isBanned()
+                ? 'Access denied.'
+                : 'Access denied. Please verify your email address.',
         ];
     }
 
@@ -79,6 +78,9 @@ function authenticateForConnect(?string $username, ?string $pass = null, ?string
     // update appTokenExpiry
     $user->appTokenExpiry = Carbon::now()->clone()->addDays(14);
     $user->save();
+
+    // backwards compatibility
+    $permissions = (int) $user->getAttribute('Permissions');
 
     return [
         'Success' => true,
@@ -158,6 +160,9 @@ function changePassword(string $username, string $password): string
  * COOKIE
  */
 
+/**
+ * @deprecated use request()->user()
+ */
 function authenticateFromCookie(
     ?string &$userOut,
     ?int &$permissionsOut,
@@ -183,7 +188,7 @@ function authenticateFromCookie(
     $userOut = $user->getAttribute('User');
     $permissionsOut = $user->getAttribute('Permissions');
 
-    if ($permissionsOut === Permissions::Banned) {
+    if ($permissionsOut === Permissions::Banned || $user->isBanned()) {
         return false;
     }
 
@@ -207,6 +212,9 @@ function authenticateFromCookie(
  * TOKEN
  */
 
+/**
+ * @deprecated use auth('connect-token')->user()
+ */
 function authenticateFromAppToken(
     ?string &$userOut,
     string $token,

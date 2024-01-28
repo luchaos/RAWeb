@@ -97,16 +97,6 @@ class Game extends BaseModel implements HasComments, HasMedia
         return GameFactory::new();
     }
 
-    // == logging
-
-    // protected static $recordEvents = ['created'];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnlyDirty();
-    }
-
     // == media
 
     public function registerMediaCollections(): void
@@ -160,9 +150,51 @@ class Game extends BaseModel implements HasComments, HasMedia
         return false;
     }
 
+    // audit activity log
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'Title',
+                'ConsoleID',
+                'ImageIcon',
+                'ImageTitle',
+                'ImageIngame',
+                'ImageBoxArt',
+                'Publisher',
+                'Developer',
+                'Genre',
+                'Released',
+                'released_at',
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
+
     // == actions
 
     // == accessors
+
+    public function getCanonicalUrlAttribute(): string
+    {
+        return route('game.show', [$this, $this->getSlugAttribute()]);
+    }
+
+    public function getPermalinkAttribute(): string
+    {
+        return route('game.show', $this);
+    }
+
+    public function getSlugAttribute(): string
+    {
+        return $this->Title ? '-' . Str::slug($this->Title) : '';
+    }
+
+    public function getIconUrlAttribute(): string
+    {
+        return media_asset($this->image_icon);
+    }
 
     public function getCanHaveBeatenTypes(): bool
     {
@@ -179,21 +211,6 @@ class Game extends BaseModel implements HasComments, HasMedia
     public function getCanDelegateActivity(User|string $user): bool
     {
         return $this->getIsStandalone() && $this->getHasAuthoredSomeAchievements($user);
-    }
-
-    public function getCanonicalUrlAttribute(): string
-    {
-        return route('game.show', [$this, $this->getSlugAttribute()]);
-    }
-
-    public function getPermalinkAttribute(): string
-    {
-        return route('game.show', $this);
-    }
-
-    public function getSlugAttribute(): string
-    {
-        return $this->Title ? '-' . Str::slug($this->Title) : '';
     }
 
     public function getHasAuthoredSomeAchievements(User|string $user): bool
@@ -234,6 +251,11 @@ class Game extends BaseModel implements HasComments, HasMedia
     public function getTitleAttribute(): ?string
     {
         return $this->attributes['Title'] ?? null;
+    }
+
+    public function getImageIconAttribute(): ?string
+    {
+        return $this->attributes['ImageIcon'] ?? null;
     }
 
     // == mutators

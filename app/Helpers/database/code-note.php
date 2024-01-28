@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\Permissions;
 use App\Models\MemoryNote;
 use App\Models\User;
 
@@ -63,11 +62,8 @@ function submitCodeNote2(string $username, int $gameID, int $address, string $no
         return false;
     }
 
-    // TODO refactor to ability
-    $permissions = (int) $user->getAttribute('Permissions');
-
     // Prevent <= registered users from creating code notes.
-    if ($permissions <= Permissions::Registered) {
+    if ($user->cannot('create', MemoryNote::class)) {
         return false;
     }
 
@@ -77,7 +73,7 @@ function submitCodeNote2(string $username, int $gameID, int $address, string $no
 
     if (
         $i !== false
-        && $permissions <= Permissions::JuniorDeveloper
+        && $user->isJuniorDeveloper()
         && $currentNotes[$i]['User'] !== $user->User
         && !empty($currentNotes[$i]['Note'])
     ) {

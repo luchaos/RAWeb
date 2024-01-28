@@ -25,6 +25,26 @@ $tools = $settings['tools'] ?? null;
             </div>
         @endif
         <div class="dropdown-column">
+            @can('manage', App\Models\User::class)
+                <x-dropdown-item :link="url('viewforum.php?f=0')">Forum Verification</x-dropdown-item>
+            @endcan
+            @can('manage', App\Models\News::class)
+                <x-dropdown-item :link="route('filament.admin.resources.news.index')">{{ __res('news') }}</x-dropdown-item>
+                <x-dropdown-item :link="url('submitnews.php')">{{ __res('news') }}</x-dropdown-item>
+            @endcan
+            @can('manage', App\Models\Event::class)
+                <x-dropdown-item :link="route('filament.admin.pages.events')">{{ __res('event') }}</x-dropdown-item>
+            @endcan
+            @can('manage', App\Models\IntegrationRelease::class)
+                <x-dropdown-header>Releases</x-dropdown-header>
+                @can('manage', App\Models\Emulator::class)
+                    <x-dropdown-item :link="route('filament.admin.resources.emulators.index')" :active="request()->routeIs('emulator*')">Emulators</x-dropdown-item>
+                @endcan
+                <x-dropdown-item :link="route('filament.admin.resources.integration-releases.index')" :active="request()->routeIs('integration.release*')">Integration</x-dropdown-item>
+            @endcan
+            @if($user->can('manage', PlayerAchievement::class))
+                <x-dropdown-item :link="url('admin.php')">Admin Tools</x-dropdown-item>
+            @endif
             @can('develop')
                 @can('manage', App\Models\Ticket::class)
                     <x-dropdown-header>{{ __('Development') }}</x-dropdown-header>
@@ -39,31 +59,6 @@ $tools = $settings['tools'] ?? null;
                 @can('manage', App\Models\GameHash::class)
                     <x-dropdown-item :link="url('latesthasheslinked.php')">Latest Linked Hashes</x-dropdown-item>
                 @endcan
-            @endif
-            @if($user->Permissions >= Permissions::Developer)
-                <x-dropdown-header>{{ __('Community') }}</x-dropdown-header>
-                @can('manage', App\Models\News::class)
-                    {{--<x-dropdown-item :link="route('news.index')">{{ __res('news') }}</x-dropdown-item>--}}
-                    <x-dropdown-item :link="url('submitnews.php')">{{ __res('news') }}</x-dropdown-item>
-                @endcan
-                @if($user->can('manage', User::class) || $user->Permissions === Permissions::Moderator)
-                    {{--<x-dropdown-item :link="route('forum-topic.verify')">Forum Verification</x-dropdown-item>--}}
-                    <x-dropdown-item :link="url('viewforum.php?f=0')">Forum Verification</x-dropdown-item>
-                @endcan
-                {{--@can('manage', App\Models\Event::class)
-                    <h6 class="dropdown-header">Events</h6>
-                @endcan--}}
-                {{--@can('manage', App\Models\IntegrationRelease::class)
-                    <x-dropdown-header>Releases</x-dropdown-header>
-                    @can('manage', App\Models\Emulator::class)
-                        <x-dropdown-item :link="route('emulator.index')" :active="request()->routeIs('emulator*')">Emulators</x-dropdown-item>
-                    @endcan
-                    <x-dropdown-item :link="route('integration.release.index')" :active="request()->routeIs('integration.release*')">Integration</x-dropdown-item>
-                @endcan--}}
-                @if($user->can('tool') || $user->Permissions === Permissions::Moderator)
-                    <div class="dropdown-header">Admin</div>
-                    <x-dropdown-item :link="url('admin.php')">Admin Tools</x-dropdown-item>
-                @endif
             @endif
         </div>
     </div>

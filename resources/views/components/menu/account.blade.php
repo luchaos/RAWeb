@@ -53,16 +53,16 @@ $user = request()->user();
         <x-dropdown-item :link="route('user.show', $user)">{{ __res('profile', 1) }}</x-dropdown-item>
         <x-dropdown-item :link="route('user.completion-progress', $user)">Completion Progress</x-dropdown-item>
 
-        @if($user->Permissions >= Permissions::Registered)
+        @if($user->hasVerifiedEmail())
             <x-dropdown-item :link="url('gameList.php?t=play')">Want to Play Games</x-dropdown-item>
             <x-dropdown-item :link="route('games.suggest')">Game Suggestions</x-dropdown-item>
         @endif
-        @if($user->ContribCount > 0 || $user->Permissions >= Permissions::JuniorDeveloper)
+        @if($user->ContribCount > 0 || $user->can('develop'))
             <div class="dropdown-divider"></div>
             @if($user->ContribCount > 0)
                 <x-dropdown-item :link="url('individualdevstats.php?u=' . $user->username)">Developer Profile</x-dropdown-item>
             @endif
-            @if($user->Permissions >= Permissions::Developer)
+            @if($user->can('develop'))
                 <x-dropdown-item :link="url('gameList.php?t=develop&f=2')">Want to Develop Games</x-dropdown-item>
             @endif
             @if($user->ContribCount > 0)
@@ -72,7 +72,7 @@ $user = request()->user();
                 <x-dropdown-item :link="url('ticketmanager.php?u=' . $user->username)">Tickets</x-dropdown-item>
                 <x-dropdown-item :link="route('developer.sets', $user)">Sets</x-dropdown-item>
             @endif
-            @if($user->Permissions >= Permissions::JuniorDeveloper)
+            @if($user->can('develop'))
                 <x-dropdown-item :link="url('claimlist.php?u=' . $user->username)">Claims</x-dropdown-item>
             @endif
         @endif

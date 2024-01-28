@@ -6,6 +6,9 @@ use App\Community\Enums\ClaimType;
 use App\Enums\Permissions;
 use App\Models\AchievementSetClaim;
 
+/**
+ * @deprecated
+ */
 function getUserPermissions(?string $user): int
 {
     if ($user == null) {
@@ -18,6 +21,9 @@ function getUserPermissions(?string $user): int
     return $row ? (int) $row['Permissions'] : Permissions::Unregistered;
 }
 
+/**
+ * @deprecated
+ */
 function SetAccountPermissionsJSON(
     string $actingUser,
     int $actingUserPermissions,
@@ -128,6 +134,9 @@ function SetAccountPermissionsJSON(
  * Manual verification / authorize user to post in forums
  */
 
+/**
+ * @deprecated use $user->isForumVerified()
+ */
 function getUserForumPostAuth(string $user): bool
 {
     sanitize_sql_inputs($user);
