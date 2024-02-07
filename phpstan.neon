@@ -1,11 +1,14 @@
 includes:
     - ./vendor/larastan/larastan/extension.neon
+    - ./vendor/tomasvotruba/bladestan/config/extension.neon
 parameters:
+    bladestan:
+        template_paths:
+            - resources/views
     paths:
         - app
         - database
         - public
-        - resources/views
         - tests
     level: 6
     checkMissingIterableValueType: false
