@@ -62,6 +62,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::get('rss-{feed}', fn ($feed) => $this->handleRequest('rss-' . $feed . '.xml'));
 
         Route::middleware(['web', 'csp'])->group(function () {
+            Route::get('validateEmail.php', fn () => $this->handlePageRequest('validateEmail'))->middleware('auth')->name('verification.notice');
             Route::get('download.php', fn () => $this->handlePageRequest('download'))->name('download.index');
             Route::get('gameList.php', fn () => $this->handlePageRequest('gameList'))->name('game.index');
             Route::get('{path}.php', fn (string $path) => $this->handlePageRequest($path))->where('path', '(.*)');

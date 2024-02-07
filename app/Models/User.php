@@ -24,6 +24,7 @@ use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,7 +42,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
 // TODO MustVerifyEmail,
-class User extends Authenticatable implements CommunityMember, Developer, HasComments, HasLocalePreference, HasMedia, Player, FilamentUser, HasName
+class User extends Authenticatable implements CommunityMember, Developer, HasComments, HasLocalePreference, HasMedia, Player, FilamentUser, HasName, MustVerifyEmail
 {
     /*
      * Framework Traits
@@ -417,20 +418,6 @@ class User extends Authenticatable implements CommunityMember, Developer, HasCom
     }
 
     // Email verification
-
-    public function hasVerifiedEmail(): bool
-    {
-        return (int) $this->getAttribute('Permissions') >= Permissions::Registered;
-    }
-
-    public function markEmailAsVerified(): bool
-    {
-        return true;
-    }
-
-    public function sendEmailVerificationNotification(): void
-    {
-    }
 
     public function getEmailForVerification(): string
     {
