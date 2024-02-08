@@ -65,7 +65,7 @@ class SystemResource extends Resource
                         ->schema([
                             Infolists\Components\Group::make()
                                 ->schema([
-                                    Infolists\Components\ImageEntry::make('icon_url')
+                                    Infolists\Components\ImageEntry::make('logo')
                                         ->label('Icon')
                                         ->size(config('media.icon.lg.width')),
                                 ]),
@@ -147,7 +147,7 @@ class SystemResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('icon_url')
+                Tables\Columns\ImageColumn::make('logo')
                     ->label('')
                     ->size(config('media.icon.sm.width')),
                 Tables\Columns\TextColumn::make('ID')

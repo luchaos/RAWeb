@@ -16,7 +16,7 @@ if ($permissions >= Permissions::Moderator) {
     $numUnofficialLinks = is_countable($unofficialLinks) ? count($unofficialLinks) : 0;
 }
 
-$pageTitle = "Forum Index";
+$pageTitle = "Forums";
 $requestedCategory = "";
 if ($requestedCategoryID !== 0 && !empty($forumList)) {
     $requestedCategory = $forumList[0]['CategoryName'];    // Fetch any elements data
@@ -29,9 +29,9 @@ sanitize_outputs($requestedCategory);
     <?php
     echo "<div class='navpath'>";
     if ($requestedCategory == "") {
-        echo "<b>Forum Index</b>";
+        echo "<b>Forums</b>";
     } else {
-        echo "<a href='/forum.php'>Forum Index</a>";
+        echo "<a href='/forum.php'>Forums</a>";
         echo " &raquo; <b>$requestedCategory</b>";
     }
     echo "</div>";
@@ -67,7 +67,7 @@ sanitize_outputs($requestedCategory);
 
             sanitize_outputs($forumData['CategoryDescription']);
 
-            echo "<h2>Forum: $nextCategory</h2>";
+            echo "<h2>$nextCategory</h2>";
             echo "<p class='mb-5'>" . $forumData['CategoryDescription'] . "</p>";
 
             echo "<table class='table-highlight'>";

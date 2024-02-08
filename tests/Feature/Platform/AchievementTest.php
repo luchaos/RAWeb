@@ -6,6 +6,7 @@ namespace Tests\Feature\Platform;
 
 use App\Models\Achievement;
 use App\Models\Game;
+use App\Models\Role;
 use App\Platform\Enums\AchievementFlag;
 use App\Platform\Enums\AchievementPoints;
 use App\Platform\Enums\AchievementType;
@@ -71,4 +72,49 @@ class AchievementTest extends TestCase
         $achievement->save();
         Event::assertDispatched(AchievementMoved::class);
     }
+
+    public function testItRendersAchievementsIndex(): void
+    {
+        $this->seedAchievements();
+
+        $this->get(route('achievement.index'))->assertSuccessful();
+    }
+
+    public function testAchievementHasCanonicalAndPermalink(): void
+    {
+        $achievement = $this->seedAchievement();
+
+        $this->get($achievement->canonicalUrl)->assertSuccessful();
+        $this->get($achievement->permalink)->assertRedirect($achievement->canonicalUrl);
+    }
+
+    public function testAchievementCannotBeEditedWithoutPermissions(): void
+    {
+        $achievement = $this->seedAchievement();
+
+        $this->get($achievement->getPermalinkAttribute() . '/edit')
+            ->assertRedirect(route('login'));
+
+        $this->actingAs($this->seedUser())
+            ->get($achievement->getPermalinkAttribute() . '/edit')
+            ->assertForbidden();
+    }
+
+    public function testAchievementCanBeEdited(): void
+    {
+        $achievement = $this->seedAchievement();
+
+        $this->actingAs($this->seedUser(Role::DEVELOPER))
+            ->get($achievement->getPermalinkAttribute() . '/edit')
+            ->assertSuccessful();
+    }
+
+    // public function testAchievementCanBeMovedToGame(): void
+    // {
+    //     upsert achievement_set
+    //     upsert badge
+    //       - add title & description from achievement as default
+    //       - add media to badge
+    //     upsert badge_set
+    // }
 }

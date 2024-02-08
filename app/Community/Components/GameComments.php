@@ -52,7 +52,7 @@ class GameComments extends Grid
 
         $this->game = $game;
 
-        $query = $this->game->comments()->getQuery();
+        $query = $this->game->comments()->with('commentable', 'user')->getQuery();
 
         $query->with('user');
 

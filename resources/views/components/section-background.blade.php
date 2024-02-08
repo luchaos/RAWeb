@@ -1,4 +1,4 @@
-<div class="{{ ($border ?? true) ? 'border-b' : '' }}"
+<div class="{{ ($border ?? true) ? 'border-b border-neutral-700' : '' }}"
      style="position:absolute;bottom:{{ $bottom ?? 0 }}px;top:0;left:0;right:0;z-index:{{ $zIndex ?? -1 }}"
 >
     @if($image ?? null)

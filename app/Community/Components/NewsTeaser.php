@@ -25,6 +25,6 @@ class NewsTeaser extends Component
      */
     protected function load(): Collection
     {
-        return News::orderByDesc('created_at')->take(4)->with('user', 'media')->get();
+        return News::orderByDesc('Timestamp')->take(4)->with('user', 'media')->get();
     }
 }

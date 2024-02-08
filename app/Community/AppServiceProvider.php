@@ -14,12 +14,22 @@ use App\Community\Commands\SyncRatings;
 use App\Community\Commands\SyncTickets;
 use App\Community\Commands\SyncUserRelations;
 use App\Community\Commands\SyncVotes;
+use App\Community\Components\AchievementComments;
 use App\Community\Components\ActivePlayers;
 use App\Community\Components\DeveloperGameStatsTable;
 use App\Community\Components\ForumRecentPosts;
+use App\Community\Components\ForumTopicComments;
+use App\Community\Components\ForumTopics;
+use App\Community\Components\GameComments;
 use App\Community\Components\GlobalStatistics;
 use App\Community\Components\MessageIcon;
+use App\Community\Components\NewsCarousel;
+use App\Community\Components\NewsComments;
+use App\Community\Components\NewsGrid;
+use App\Community\Components\NewsTeaser;
+use App\Community\Components\UserActivityFeed;
 use App\Community\Components\UserCard;
+use App\Community\Components\UserComments;
 use App\Community\Components\UserProfileMeta;
 use App\Community\Components\UserProgressionStatus;
 use App\Community\Components\UserRecentlyPlayed;
@@ -117,18 +127,18 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('user-progression-status', UserProgressionStatus::class);
         Blade::component('user-recently-played', UserRecentlyPlayed::class);
 
-        // Livewire::component('forum-topics', ForumTopics::class);
-        //
-        // Livewire::component('achievement.comments', AchievementComments::class);
-        // Livewire::component('forum-topic-comments', ForumTopicComments::class);
-        // Livewire::component('game.comments', GameComments::class);
-        // Livewire::component('news.comments', NewsComments::class);
-        // Livewire::component('user.comments', UserComments::class);
+        Livewire::component('forum-topics', ForumTopics::class);
+
+        Livewire::component('achievement.comments', AchievementComments::class);
+        Livewire::component('forum-topic-comments', ForumTopicComments::class);
+        Livewire::component('game.comments', GameComments::class);
+        Livewire::component('news.comments', NewsComments::class);
+        Livewire::component('user.comments', UserComments::class);
 
         Livewire::component('message-icon', MessageIcon::class);
-        // Blade::component('news-carousel', NewsCarousel::class);
-        // Livewire::component('news-grid', NewsGrid::class);
-        // Livewire::component('news-teaser', NewsTeaser::class);
-        // Livewire::component('user-activity-feed', UserActivityFeed::class);
+        Blade::component('news-carousel', NewsCarousel::class);
+        Livewire::component('news-grid', NewsGrid::class);
+        Livewire::component('news-teaser', NewsTeaser::class);
+        Livewire::component('user-activity-feed', UserActivityFeed::class);
     }
 }

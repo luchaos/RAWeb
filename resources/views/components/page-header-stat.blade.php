@@ -2,11 +2,11 @@
 $type ??= 'integer';
 $fractionDigits ??= 1;
 ?>
-@if($value && $value > 0)
-    <div class="mr-3">
-        <div class="uppercase text-secondary">
-            <small>{{ $label }}</small>
-        </div>
+<div class="mr-3">
+    <div class="uppercase text-secondary">
+        <small>{{ $label }}</small>
+    </div>
+    <div class="text-lg">
         @if($type=== 'integer')
             <x-number :number="$value" />
         @endif
@@ -14,4 +14,4 @@ $fractionDigits ??= 1;
             <x-number :number="$value" :fractionDigits="$fractionDigits" percent />
         @endif
     </div>
-@endif
+</div>

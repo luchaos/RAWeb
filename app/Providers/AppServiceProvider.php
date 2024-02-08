@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Components\Grid;
 use App\Components\NotificationIcon;
+use App\Components\Supersearch;
+use App\Components\UserGrid;
 use App\Console\Commands\CleanupAvatars;
 use App\Console\Commands\DeleteExpiredEmailVerificationTokens;
 use App\Console\Commands\DeleteOverdueUserAccounts;
@@ -83,14 +86,14 @@ class AppServiceProvider extends ServiceProvider
         /*
          * Register Support Livewire components
          */
-        // Livewire::component('grid', Grid::class);
+        Livewire::component('grid', Grid::class);
 
         /*
          * Register Livewire components
          */
         Livewire::component('notification-icon', NotificationIcon::class);
-        // Livewire::component('supersearch', Supersearch::class);
-        // Livewire::component('user-grid', UserGrid::class);
+        Livewire::component('supersearch', Supersearch::class);
+        Livewire::component('user-grid', UserGrid::class);
 
         /*
          * Apply domain namespaces to tests' class name resolvers

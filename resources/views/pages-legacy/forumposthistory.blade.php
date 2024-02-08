@@ -24,7 +24,7 @@ if (empty($forUser)) {
 <x-app-layout pageTitle="Forum Recent Posts">
     <?php
     echo "<div class='navpath'>";
-    echo "<a href='/forum.php'>Forum Index</a>";
+    echo "<a href='/forum.php'>Forums</a>";
     if ($forUser != null) {
         echo " &raquo; <a href='/forumposthistory.php'>Forum Post History</a>";
         echo " &raquo; <b>$forUser</b>";

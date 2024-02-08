@@ -10,7 +10,7 @@ use Illuminate\View\Component;
 class Navbar extends Component
 {
     public function __construct(
-        public string $breakpoint = 'lg',
+        public string $breakpoint = 'md',
         public string $class = '',
         public bool $fluid = false,
     ) {

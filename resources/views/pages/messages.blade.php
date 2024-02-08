@@ -39,19 +39,27 @@ function deleteMessage(id) {
     pageTitle="Messages"
     pageDescription="Messages involving {{ $user->User }}"
 >
-    <h1 class="w-full">Messages</h1>
-
-    <div class="ml-2">
-        You have {{ $unreadCount }} unread @choice('message|messages', $unreadCount)
-        in {{ $totalMessages }} @choice('message thread|message threads', $totalMessages).
-    </div>
+    <x-slot name="header">
+        <x-page-header
+            :background="$user->avatar_url"
+        >
+            <x-slot name="title">
+                <h1 class="mb-[-30px] ml-3">{{ __res('message') }}</h1>
+            </x-slot>
+            <x-slot name="actions">
+                <a class="btn" href='{{ route('message.create') }}'>
+                    <x-fas-pen />
+                    {{ __res('message', 1) }}
+                </a>
+            </x-slot>
+            <x-slot name="stats">
+                <x-page-header-stat label="Unread {{ __res('message', $unreadCount) }}" :value="$unreadCount" />
+                <x-page-header-stat label="{{ __res('message-thread', $totalMessages) }}" :value="$totalMessages" />
+            </x-slot>
+        </x-page-header>
+    </x-slot>
 
     <div class="w-full flex mt-2">
-        <div class="mr-6">
-            <a href="{{ route('message.create') }}">
-                <button class="btn">New Message</button>
-            </a>
-        </div>
         <div class="w-full flex justify-end">
             <x-paginator :totalPages="$totalPages" :currentPage="$currentPage" />
         </div>

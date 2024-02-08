@@ -1,7 +1,6 @@
 <div class="flex justify-between {{ $class ?? null }}">
-    {{--<div class="w-100">--}}{{-- width 100% to have navigations not extend out of viewport --}}
+    {{--<div class="w-full">--}}{{-- width 100% to have navigations not extend out of viewport --}}
     <div class="">
-        {{--<code>section-header</code>--}}
         <div class="">
             {{ $title ?? null }}
         </div>

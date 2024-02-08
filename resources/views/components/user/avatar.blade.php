@@ -14,7 +14,6 @@ $tooltip ??= true;
 $iconWidth = config('media.icon.' . $iconSize . '.width');
 $iconHeight = config('media.icon.' . $iconSize . '.height');
 ?>
-
 <x-avatar
     :class="$class"
     :display="$display"
@@ -25,7 +24,7 @@ $iconHeight = config('media.icon.' . $iconSize . '.height');
 >
     @if($user ?? false)
         @if($display === 'icon')
-            <img src="{{ asset($user->avatarUrl) }}" class="icon-{{ $iconSize }} {{ $class }}" loading="lazy"
+            <img src="{{ $user->avatarUrl }}" class="icon-{{ $iconSize }} {{ $class }}" loading="lazy"
                  width="{{ $iconWidth }}" height="{{ $iconHeight }}" alt="{{ $user->display_name }}">
         @endif
         @if($display === 'id'){{ $user->id }}@endif

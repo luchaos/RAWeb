@@ -20,6 +20,7 @@ import {
   initializeTextareaCounter,
   injectShortcode,
   loadPostPreview,
+  scrollToGridTop,
   setCookie,
   themeChange,
   toggleUserCompletedSetsVisibility,
@@ -46,6 +47,7 @@ window.handleLeaderboardTabClick = handleLeaderboardTabClick;
 window.initializeTextareaCounter = initializeTextareaCounter;
 window.injectShortcode = injectShortcode;
 window.loadPostPreview = loadPostPreview;
+window.scrollToGridTop = scrollToGridTop;
 window.setCookie = setCookie;
 window.toggleUserCompletedSetsVisibility = toggleUserCompletedSetsVisibility;
 window.updateUrlParameter = updateUrlParameter;

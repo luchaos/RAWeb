@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 if (!function_exists('localized_date')) {
     function localized_date(

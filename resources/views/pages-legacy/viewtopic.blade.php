@@ -78,7 +78,7 @@ $isSubscribed = isUserSubscribedToForumTopic($thisTopicID, $userID);
 <x-app-layout pageTitle="Topic: {{ $thisTopicForum }} - {{ $thisTopicTitle }}">
     <?php
     echo "<div class='navpath'>";
-    echo "<a href='/forum.php'>Forum Index</a>";
+    echo "<a href='/forum.php'>Forums</a>";
     echo " &raquo; <a href='forum.php?c=$thisTopicCategoryID'>$thisTopicCategory</a>";
     echo " &raquo; <a href='viewforum.php?f=$thisTopicForumID'>$thisTopicForum</a>";
     echo " &raquo; <b>$thisTopicTitle</b></a>";

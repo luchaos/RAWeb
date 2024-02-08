@@ -49,12 +49,25 @@ use App\Platform\Commands\UpdateLeaderboardMetrics;
 use App\Platform\Commands\UpdatePlayerGameMetrics;
 use App\Platform\Commands\UpdatePlayerMetrics;
 use App\Platform\Commands\UpdatePlayerStats;
+use App\Platform\Components\AchievementGrid;
+use App\Platform\Components\AchievementPlayerGrid;
+use App\Platform\Components\BadgeGrid;
+use App\Platform\Components\EmulatorGrid;
+use App\Platform\Components\EmulatorReleaseGrid;
 use App\Platform\Components\GameCard;
+use App\Platform\Components\GameGrid;
+use App\Platform\Components\GameHashGrid;
+use App\Platform\Components\GamePlayerGrid;
 use App\Platform\Components\GameTitle;
+use App\Platform\Components\IntegrationReleaseGrid;
+use App\Platform\Components\LeaderboardGrid;
+use App\Platform\Components\PlayersActive;
+use App\Platform\Components\SystemGrid;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -149,19 +162,19 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('game-card', GameCard::class);
         Blade::component('game-title', GameTitle::class);
 
-        // Livewire::component('achievement-grid', AchievementGrid::class);
-        // Livewire::component('achievement-player-grid', AchievementPlayerGrid::class);
+        Livewire::component('achievement-grid', AchievementGrid::class);
+        Livewire::component('achievement-player-grid', AchievementPlayerGrid::class);
         // Livewire::component('badge-grid', BadgeGrid::class);
-        // Livewire::component('game-grid', GameGrid::class);
-        // Livewire::component('game-player-grid', GamePlayerGrid::class);
-        // Livewire::component('leaderboard-grid', LeaderboardGrid::class);
-        // Livewire::component('game-hash-grid', GameHashGrid::class);
-        // Livewire::component('system-grid', SystemGrid::class);
-        //
+        Livewire::component('game-grid', GameGrid::class);
+        Livewire::component('game-player-grid', GamePlayerGrid::class);
+        Livewire::component('leaderboard-grid', LeaderboardGrid::class);
+        Livewire::component('game-hash-grid', GameHashGrid::class);
+        Livewire::component('system-grid', SystemGrid::class);
+
         // Livewire::component('players-active', PlayersActive::class);
-        //
-        // Livewire::component('emulator-grid', EmulatorGrid::class);
-        // Livewire::component('emulator-release-grid', EmulatorReleaseGrid::class);
-        // Livewire::component('integration-release-grid', IntegrationReleaseGrid::class);
+
+        Livewire::component('emulator-grid', EmulatorGrid::class);
+        Livewire::component('emulator-release-grid', EmulatorReleaseGrid::class);
+        Livewire::component('integration-release-grid', IntegrationReleaseGrid::class);
     }
 }

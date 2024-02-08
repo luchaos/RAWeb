@@ -51,14 +51,14 @@ class SystemController extends Controller
 
         /** @var System $system */
         $system = $system->withCount(['games', 'achievements', 'emulators'])->find($system->id);
-        $system->load([
-            'emulators' => function ($query) {
-                $query->orderBy('name');
-            },
-        ]);
-        $games = $system->games()->orderBy('updated_at')->take(5)->get();
+        // $system->load([
+        //     'emulators' => function ($query) {
+        //         $query->orderBy('name');
+        //     },
+        // ]);
+        $games = $system->games()->orderBy('Updated')->take(5)->get();
 
-        return view('system.show')
+        return view('pages.system')
             ->with('system', $system)
             ->with('games', $games);
     }

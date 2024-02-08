@@ -52,9 +52,9 @@
     </x-main>
 </x-content>
 <footer>
-    {{--@if(!Route::is('news.index'))
+    @if(!Route::is('news.index'))
         <livewire:news-teaser />
-    @endif--}}
+    @endif
     <x-footer-navigation/>
 </footer>
 <x-body-end/>

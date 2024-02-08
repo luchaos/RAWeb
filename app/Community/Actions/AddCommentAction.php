@@ -15,7 +15,7 @@ class AddCommentAction
     {
         $comment = new Comment($request->validated());
 
-        $comment->user_id = $request->user()->id;
+        $comment->UserID = $request->user()->id;
 
         return $commentable->comments()->save($comment);
     }

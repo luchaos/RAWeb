@@ -12,7 +12,7 @@
 @elseif ($selectionMethod === 'similar-to')
     @if ($relatedGameId > 0)
         Similar to {{ $relatedGameType }} game:
-        <x-game.avatar
+        <x-game.avatar-2
             :gameId="$relatedGameId"
             :gameTitle="$relatedGameTitle"
             :gameImageIcon="$relatedGameIcon"
@@ -25,7 +25,7 @@
     Shares hub {{ $relatedSubject }}
     @if ($relatedGameId > 0)
         with {{ $relatedGameType }} game:
-        <x-game.avatar
+        <x-game.avatar-2
             :gameId="$relatedGameId"
             :gameTitle="$relatedGameTitle"
             :gameImageIcon="$relatedGameIcon"
@@ -36,7 +36,7 @@
     Shares set developer {!! userAvatar($relatedSubject, icon: false) !!}
     @if ($relatedGameId > 0)
         with {{ $relatedGameType }} game:
-        <x-game.avatar
+        <x-game.avatar-2
             :gameId="$relatedGameId"
             :gameTitle="$relatedGameTitle"
             :gameImageIcon="$relatedGameIcon"
@@ -46,7 +46,7 @@
 @elseif ($selectionMethod === 'common-player')
     @if ($relatedGameId > 0)
         Mastered by players of {{ $relatedGameType }} game:
-        <x-game.avatar
+        <x-game.avatar-2
             :gameId="$relatedGameId"
             :gameTitle="$relatedGameTitle"
             :gameImageIcon="$relatedGameIcon"

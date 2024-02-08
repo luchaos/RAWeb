@@ -36,48 +36,48 @@ if (!function_exists('resource_class')) {
     }
 }
 
-// if (!function_exists('achievement')) {
-//     function achievement_avatar(Achievement $achievement, string $display = 'name', string $iconSize = 'sm'): string
-//     {
-//         return view('components.achievement.avatar', ['achievement' => $achievement, 'display' => $display, 'iconSize' => $iconSize])
-//             ->render();
-//     }
-// }
-//
-// if (!function_exists('system_avatar')) {
-//     function system_avatar(System $system, string $display = 'name_short', string $iconSize = 'sm'): string
-//     {
-//         return view('components.system.avatar', ['system' => $system, 'display' => $display, 'iconSize' => $iconSize])
-//             ->render();
-//     }
-// }
-//
-// if (!function_exists('emulator')) {
-//     function emulator_avatar(Emulator $emulator, string $display = 'name', string $iconSize = 'sm'): string
-//     {
-//         return view('components.emulator.avatar', ['emulator' => $emulator, 'display' => $display, 'iconSize' => $iconSize])
-//             ->render();
-//     }
-// }
-//
-// if (!function_exists('game')) {
-//     function game_avatar(Game $game, string $display = 'name', string $iconSize = 'sm'): string
-//     {
-//         return view('components.game.avatar', ['game' => $game, 'display' => $display, 'iconSize' => $iconSize])
-//             ->render();
-//     }
-// }
-//
-// if (!function_exists('leaderboard')) {
-//     function leaderboard_avatar(Leaderboard $leaderboard, string $display = 'name'): string
-//     {
-//         return view('components.leaderboard.avatar', ['leaderboard' => $leaderboard, 'display' => $display])
-//             ->render();
-//     }
-// }
+if (!function_exists('achievement')) {
+    function achievement(Achievement $achievement, string $display = 'name', string $iconSize = 'sm'): string
+    {
+        return view('components.achievement.avatar', ['achievement' => $achievement, 'display' => $display, 'iconSize' => $iconSize])
+            ->render();
+    }
+}
+
+if (!function_exists('system')) {
+    function system(System $system, string $display = 'name_short', string $iconSize = 'sm'): string
+    {
+        return view('components.system.avatar', ['system' => $system, 'display' => $display, 'iconSize' => $iconSize])
+            ->render();
+    }
+}
+
+if (!function_exists('emulator')) {
+    function emulator(Emulator $emulator, string $display = 'name', string $iconSize = 'sm'): string
+    {
+        return view('components.emulator.avatar', ['emulator' => $emulator, 'display' => $display, 'iconSize' => $iconSize])
+            ->render();
+    }
+}
+
+if (!function_exists('game')) {
+    function game(Game $game, string $display = 'name', string $iconSize = 'sm'): string
+    {
+        return view('components.game.avatar', ['game' => $game, 'display' => $display, 'iconSize' => $iconSize])
+            ->render();
+    }
+}
+
+if (!function_exists('leaderboard')) {
+    function leaderboard(Leaderboard $leaderboard, string $display = 'name'): string
+    {
+        return view('components.leaderboard.avatar', ['leaderboard' => $leaderboard, 'display' => $display])
+            ->render();
+    }
+}
 
 if (!function_exists('user')) {
-    function user_avatar(User $user, string $display = 'name', string $iconSize = 'sm'): string
+    function user(?User $user, string $display = 'name', string $iconSize = 'sm'): string
     {
         return view('components.user.avatar', ['user' => $user, 'display' => $display, 'iconSize' => $iconSize])
             ->render();

@@ -19,9 +19,9 @@ $canUseDesktopHref = !$agent->isMobile();
 
 <div class="dropdown {{ $class ?? '' }} {{ ($active ?? false) ? 'active' : '' }}">
     <x-dropdown-trigger
-        triggerClass="{{ $triggerClass ?? '' }}"
+        :triggerClass="$triggerClass ?? ''"
         id="dropdownTrigger{{ $id }}"
-        title="{{ $title ?? '' }}"
+        :title="$title ?? ''"
         :desktopHref="($desktopHref && $canUseDesktopHref) ? $desktopHref : null"
     >
         {{ $trigger }}

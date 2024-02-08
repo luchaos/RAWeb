@@ -73,10 +73,3 @@
 .bullet.on {
 	background: url('images/icon/page-on.png') center center no-repeat;
 }
-
-/* --- MOBILE STYLES --- */
-@media only screen and (max-width: 980px) {
-	#carousel{
-		  width: 220px!important;
-	}
-}

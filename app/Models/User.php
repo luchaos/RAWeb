@@ -144,7 +144,7 @@ class User extends Authenticatable implements CommunityMember, Developer, HasCom
         'ManuallyVerified',
         'Motto',
         'muted_until',
-        'password', // fillable for registration
+        'Password', // fillable for registration
         'Permissions',
         'preferences',
         'RAPoints',
@@ -389,6 +389,11 @@ class User extends Authenticatable implements CommunityMember, Developer, HasCom
     public function getUsernameAttribute(): string
     {
         return $this->getAttribute('User');
+    }
+
+    public function getMottoAttribute(): string
+    {
+        return $this->getAttribute('Motto');
     }
 
     public function getPermissionsAttribute(): int

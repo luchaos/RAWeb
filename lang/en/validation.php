@@ -226,6 +226,9 @@ return [
         'updated_at' => __('Updated'),
         'version' => __('Version'),
         'video' => __('Video'),
+
+        // TODO remove after rename
+        'payload' => __('Body'),
     ],
 
 ];

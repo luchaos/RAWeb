@@ -4,6 +4,11 @@ use function Laravel\Folio\{name};
 
 name('demo');
 
+use App\Models\Achievement;
+
+/** @var Achievement $achievement */
+$achievement = Achievement::first();
+
 ?>
 <x-demo-layout
     :page-title="__('Demo')"
@@ -20,10 +25,34 @@ name('demo');
     </x-slot>
 
     <x-slot name="header">
-        <x-page-header :background="asset('assets/images/ra-icon.webp')">
+        <x-page-header
+            :large="Route::is('demo')"
+            :background="asset('assets/images/ra-icon.webp')"
+        >
+            <x-slot name="avatar">
+                <x-achievement.avatar :achievement="$achievement" display="icon" icon-size="2xl"/>
+            </x-slot>
             <x-slot name="title">
-                <h2>Header Title</h2>
-                {{--<p>Text in title -> actions will be below</p>--}}
+                <h2 class="mb-0">{{ $achievement->title }}</h2>
+            </x-slot>
+            <x-slot name="subTitle">
+                <div class="mb-3">
+                    {{ $achievement->description }}
+                </div>
+            </x-slot>
+            <x-slot name="titleActivity">
+                <x-game.card :game="$achievement->game" iconSize="lg" />
+            </x-slot>
+            <x-slot name="navigation">
+                <x-achievement.menu :achievement="$achievement" />
+            </x-slot>
+            <x-slot name="stats">
+                <x-page-header-stat :label="__res('point')" :value="$achievement->points"/>
+                <x-page-header-stat label="Stat" :value="67890"/>
+                <x-page-header-stat label="Stat" :value="77777777"/>
+                <x-page-header-stat label="Stat" :value="0.2" type="percent"/>
+                <x-page-header-stat label="Stat" :value="2" type="percent" :fractionDigits="0"/>
+                <x-page-header-stat label="Stat" :value="0.01" :fractionDigits="2" type="percent"/>
             </x-slot>
             <x-slot name="actions">
                 @foreach([null, 'warning', 'danger'] as $modifier)
@@ -33,16 +62,6 @@ name('demo');
                     </x-button>
                 @endforeach
             </x-slot>
-            <x-slot name="stats">
-                <x-page-header-stat label="Stat" :value="1234"/>
-                <x-page-header-stat label="Stat" :value="5"/>
-                <x-page-header-stat label="Stat" :value="67890"/>
-                <x-page-header-stat label="Stat" :value="77777777"/>
-                <x-page-header-stat label="Stat" :value="0.2" type="percent"/>
-                <x-page-header-stat label="Stat" :value="2" type="percent" :fractionDigits="0"/>
-                <x-page-header-stat label="Stat" :value="0.01" :fractionDigits="2" type="percent"/>
-            </x-slot>
-            ...
         </x-page-header>
     </x-slot>
 
@@ -133,6 +152,7 @@ name('demo');
             <x-fas-heart class="text-red-500"/>
         </p>
         <p>
+            <x-fas-gamepad class="h-6 w-6"/>
             <x-fas-bell class="h-6 w-6"/>
             <x-fas-envelope class="h-6 w-6"/>
             <x-fas-search class="h-6 w-6"/>
@@ -157,6 +177,20 @@ name('demo');
                     {{ $modifier }}
                 </x-button>
             @endforeach
+        </div>
+        <div class="mb-3">
+            <x-dropdown class="inline-block" trigger-class="btn btn-link">
+                <x-slot name="trigger">
+                    <span class="ml-1">Dropdown</span>
+                    <x-pixelarticons-chevron-down class="h-4 w-4"/>
+                </x-slot>
+                <x-dropdown-header>Header</x-dropdown-header>
+                <x-dropdown-item :link="url('demo')">Link</x-dropdown-item>
+                <div class="dropdown-divider"></div>
+                <x-dropdown-item>
+                    <button class="dropdown-item">Button</button>
+                </x-dropdown-item>
+            </x-dropdown>
         </div>
     </x-section>
     <x-section>

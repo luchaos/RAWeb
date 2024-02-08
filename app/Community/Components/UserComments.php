@@ -45,7 +45,7 @@ class UserComments extends Grid
 
         $this->user = $user;
 
-        $query = $this->user->comments()->getQuery();
+        $query = $this->user->comments()->with('commentable', 'user')->getQuery();
 
         $query->with('user');
 

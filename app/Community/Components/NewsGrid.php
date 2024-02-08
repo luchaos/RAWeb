@@ -12,6 +12,8 @@ use Spatie\QueryBuilder\AllowedSort;
 
 class NewsGrid extends Grid
 {
+    public bool $updateQuery = true;
+
     public string $display = 'cards';
 
     protected function resourceName(): string
@@ -73,7 +75,7 @@ class NewsGrid extends Grid
     {
         $query = $this->resourceQuery();
 
-        // $query->with('user');
+        $query->with('user');
 
         return $query;
     }

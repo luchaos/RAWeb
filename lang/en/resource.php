@@ -112,6 +112,9 @@ return [
             'title' => __('comment') . '|' . __('comments'),
         ],
     ],
+    'follower' => [
+        'title' => __('follower') . '|' . __('followers'),
+    ],
     'friend' => [
         'title' => __('friend') . '|' . __('friends'),
     ],
@@ -138,6 +141,9 @@ return [
     ],
     'message' => [
         'title' => __('message') . '|' . __('messages'),
+    ],
+    'message-thread' => [
+        'title' => __('message thread') . '|' . __('message threads'),
     ],
     'news' => [
         'title' => __('news') . '|' . __('news'),

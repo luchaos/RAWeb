@@ -29,7 +29,7 @@ if ($requestedForumID == 0 && $permissions >= Permissions::Moderator) {
     $thisForumID = 0;
     $thisForumTitle = "Forum Verification";
     $thisForumDescription = "Unverified Posts";
-    $thisCategoryID = 0;
+    $thisCategoryID = null;
     $thisCategoryName = null;
 
     $topicList = $unofficialLinks;
@@ -61,8 +61,8 @@ sanitize_outputs(
 <x-app-layout pageTitle="Forum: {{ $thisForumTitle }}">
     <?php
     echo "<div class='navpath'>";
-    echo "<a href='/forum.php'>Forum Index</a>";
-    if ($thisCategoryName) {
+    echo "<a href='/forum.php'>Forums</a>";
+    if ($thisCategoryID !== null) {
         echo " &raquo; <a href='/forum.php?c=$thisCategoryID'>$thisCategoryName</a>";
     }
     echo " &raquo; <b>$requestedForum</b></a>";
@@ -84,7 +84,7 @@ sanitize_outputs(
         RenderPaginator($numTotalTopics, $count, $offset, "/viewforum.php?f=$requestedForumID&o=");
         echo "</div>";
     }
-    if ($permissions >= Permissions::Registered) {
+    if ($permissions >= Permissions::Registered && $thisCategoryID !== null) {
         echo "<a class='btn btn-link' href='createtopic.php?forum=$thisForumID'>Create New Topic</a>";
     }
     echo "</div>";

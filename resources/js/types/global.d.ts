@@ -18,6 +18,7 @@ import type {
   getCookie as GetCookie,
   setCookie as SetCookie,
 } from '@/utils/cookie';
+import type { scrollToGridTop as ScrollToGridTop } from '@/utils/scrollToGridTop';
 import type { toggleUserCompletedSetsVisibility as ToggleUserCompletedSetsVisibility } from '@/utils/toggleUserCompletedSetsVisibility';
 import type { updateUrlParameter as UpdateUrlParameter } from '@/utils/updateUrlParameter';
 
@@ -41,6 +42,7 @@ declare global {
   var setCookie: typeof SetCookie;
   var showStatusFailure: (message: string) => void;
   var showStatusSuccess: (message: string) => void;
+  var scrollToGridTop: () => void;
   var toggleAchievementRowsComponent: typeof ToggleAchievementRowsComponent;
   var toggleUserCompletedSetsVisibility: typeof ToggleUserCompletedSetsVisibility;
   var tooltipComponent: typeof TooltipComponent;

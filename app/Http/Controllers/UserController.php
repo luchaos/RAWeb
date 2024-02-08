@@ -36,6 +36,7 @@ class UserController extends Controller
                     $query->orderByDesc('unlocked_hardcore_at');
                     $query->orderByDesc('unlocked_at');
                 },
+                'game',
             ])
             ->withCount('achievements');
 

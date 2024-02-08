@@ -1,7 +1,7 @@
 :root {
   --footer-height-md: 320px;
   --footer-height-lg: 350px;
-  --news-teaser-height: 200px;
+  --news-teaser-height: 230px;
 }
 
 html {
@@ -25,7 +25,7 @@ body {
   }
 }
 
-/*@media screen(md) {
+@media screen(md) {
   body.with-footer.with-news {
     padding-bottom: calc(var(--footer-height-md) + var(--news-teaser-height));
   }
@@ -35,7 +35,7 @@ body {
   body.with-footer.with-news {
     padding-bottom: calc(var(--footer-height-lg) + var(--news-teaser-height));
   }
-}*/
+}
 
 header {
   overflow-x: hidden;
@@ -105,9 +105,9 @@ footer {
     height: var(--footer-height-md);
   }
 
-  /*.with-news footer {
+  .with-news footer {
     height: var(--footer-height-md) + var(--news-teaser-height);
-  }*/
+  }
 }
 
 @media screen(lg) {
@@ -115,7 +115,38 @@ footer {
     height: var(--footer-height-lg);
   }
 
-  /*.with-news footer {
+  .with-news footer {
     height: var(--footer-height-lg) + var(--news-teaser-height);
-  }*/
+  }
+}
+
+section {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+section > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+section.min-height {
+ min-height: 200px;
+}
+
+.background {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

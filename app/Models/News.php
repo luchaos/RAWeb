@@ -129,6 +129,48 @@ class News extends BaseModel implements HasComments, HasMedia
         return $this->title ? '-' . Str::slug($this->title) : '';
     }
 
+    // TODO remove after rename
+
+    public function getIdAttribute(): ?int
+    {
+        return $this->attributes['ID'] ?? null;
+    }
+
+    public function getTitleAttribute(): ?string
+    {
+
+        return $this->attributes['Title'] ?? null;
+    }
+
+    public function getBodyAttribute(): ?string
+    {
+        return $this->attributes['Payload'] ?? null;
+    }
+
+    public function getImageAttribute(): ?string
+    {
+        return $this->attributes['Image'] ?? null;
+    }
+
+    public function getLinkAttribute(): ?string
+    {
+        return $this->attributes['Link'] ?? null;
+    }
+
+    public function getCreatedAtAttribute(): ?Carbon
+    {
+        return isset($this->attributes['Timestamp'])
+            ? Carbon::parse($this->attributes['Timestamp'])
+            : null;
+    }
+
+    public function getUpdatedAtAttribute(): ?Carbon
+    {
+        return isset($this->attributes['Updated'])
+            ? Carbon::parse($this->attributes['Updated'])
+            : null;
+    }
+
     // == mutators
 
     // == relations
@@ -146,7 +188,7 @@ class News extends BaseModel implements HasComments, HasMedia
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // == scopes

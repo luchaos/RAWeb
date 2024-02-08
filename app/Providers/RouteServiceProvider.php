@@ -5,10 +5,18 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Http\Concerns\HandlesPublicFileRequests;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\RssController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Laravel\Octane\Facades\Octane;
 
 class RouteServiceProvider extends ServiceProvider
@@ -30,20 +38,15 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('slug', '-[a-zA-Z0-9_-]+');
         Route::pattern('user', '[a-zA-Z0-9_]{1,20}');
 
-        // TODO v2
-        // Route::bind('user', function ($value) {
-        //     /**
-        //      * TODO: resolve user by username, hashId, or both
-        //      */
-        //     $query = User::where('username', Str::lower($value));
-        //
-        //     /*
-        //      * add last activity
-        //      */
-        //     $query->withLastActivity();
-        //
-        //     return $query->firstOrFail();
-        // });
+        Route::bind('user', function ($value) {
+            // TODO: resolve user by username, hashId, or both
+            $query = User::where('User', Str::lower($value));
+
+            // add last activity
+            // $query->withLastActivity();
+
+            return $query->firstOrFail();
+        });
     }
 
     public function map(): void
@@ -53,6 +56,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebRoutes(): void
     {
+        // TODO migrate to controller actions
         Route::middleware(['web'])->group(function () {
             // prohibit GET form requests in request/
             Route::get('request/{path}.php', fn (string $path) => abort(405))->where('path', '(.*)');
@@ -61,6 +65,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::get('rss-{feed}', fn ($feed) => $this->handleRequest('rss-' . $feed . '.xml'));
 
+        // TODO migrate to controllers/views
         Route::middleware(['web', 'csp'])->group(function () {
             Route::get('download.php', fn () => $this->handlePageRequest('download'))->name('download.index');
             Route::get('gameList.php', fn () => $this->handlePageRequest('gameList'))->name('game.index');
@@ -75,10 +80,10 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * content
              */
-            // Route::get('downloads', [DownloadController::class, 'index'])->name('download.index');
-            // Route::get('feed', [FeedController::class, 'index'])->name('feed.index');
-            // Route::get('rss/{resource}', [RssController::class, 'show'])->name('rss.show');
-            // Route::get('search', [SearchController::class, 'index'])->name('search');
+            Route::get('downloads', [DownloadController::class, 'index'])->name('download.index');
+            // Route::get('feed', [Spatie\Feed\Http\FeedController::class, 'index'])->name('feed.index');
+            Route::get('rss/{resource}', [RssController::class, 'show'])->name('rss.show');
+            Route::get('search', [SearchController::class, 'index'])->name('search');
 
             /*
              * Octane test route
@@ -93,8 +98,8 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * user & permalinks
              */
-            // Route::resource('user', UserController::class)->only('show');
-            // Route::resource('users', UserController::class)->only('index')->names(['index' => 'user.index']);
+            Route::resource('user', UserController::class)->only('show');
+            Route::resource('users', UserController::class)->only('index')->names(['index' => 'user.index']);
             Route::get('u/{hashId}', [UserController::class, 'permalink'])->name('user.permalink');
 
             /*
@@ -104,20 +109,20 @@ class RouteServiceProvider extends ServiceProvider
             Route::group([
                 'middleware' => ['auth'],
             ], function () {
-                // Route::get('notifications', [NotificationsController::class, 'index'])->name('notification.index');
+                Route::get('notifications', [NotificationsController::class, 'index'])->name('notification.index');
 
                 /*
                  * settings and user attributes
                  */
-                // Route::group(['prefix' => 'settings'], function () {
-                //     Route::get('keys', [SettingsController::class, 'edit'])->middleware('password.confirm');
-                //     Route::get('{section?}', [SettingsController::class, 'edit'])->name('settings');
-                //
-                //     Route::put('profile', [SettingsController::class, 'updateProfile'])->name('settings.profile.update');
-                //     Route::put('password', [SettingsController::class, 'updatePassword'])->name('settings.password.update');
-                //     Route::put('email', [SettingsController::class, 'updateEmail'])->name('settings.email.update');
-                //     Route::put('notifications', [SettingsController::class, 'updateNotificationPreferences'])->name('settings.notifications.update');
-                // });
+                Route::group(['prefix' => 'settings'], function () {
+                    Route::get('keys', [SettingsController::class, 'edit'])->middleware('password.confirm');
+                    Route::get('{section?}', [SettingsController::class, 'edit'])->name('settings');
+
+                    Route::put('profile', [SettingsController::class, 'updateProfile'])->name('settings.profile.update');
+                    Route::put('password', [SettingsController::class, 'updatePassword'])->name('settings.password.update');
+                    Route::put('email', [SettingsController::class, 'updateEmail'])->name('settings.email.update');
+                    Route::put('notifications', [SettingsController::class, 'updateNotificationPreferences'])->name('settings.notifications.update');
+                });
             });
         });
     }

@@ -1,7 +1,7 @@
 <?php
 
 // see resources/views/layouts/app.blade.php
-// see resources/views/layouts/partials/head.blade.php
+// see resources/views/layouts/components/head.blade.php
 
 function RenderPaginator(int $numItems, int $perPage, int $offset, string $urlPrefix): void
 {

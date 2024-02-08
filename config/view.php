@@ -15,8 +15,7 @@ return [
 
     'paths' => [
         resource_path('views'),
-        resource_path('views') . '/community',
-        resource_path('views') . '/platform',
+        resource_path('views') . '/pages-new',
     ],
 
     /*

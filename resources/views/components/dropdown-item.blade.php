@@ -6,7 +6,7 @@
         {{ $slot }}
     </x-link>
 @else
-    <span class="dropdown-item {{ $class ?? null }} {{ ($active ?? false) ? 'active' : '' }}">
+    <span class="dropdown-item {{ $class ?? null }} {{ $class ?? null }} {{ ($active ?? false) ? 'active' : '' }}">
         {{ $slot }}
     </span>
 @endif

@@ -17,12 +17,31 @@ $message = request()->input('message') ?? '';
 <x-app-layout
     pageTitle="New Message"
     pageDescription="Create a new message"
+    {{--section="messages"--}}
+    {{--:title="__res('message')"--}}
 >
     <x-message.breadcrumbs currentPage="New Message" />
 
     <div class="w-full flex gap-x-3">
         <h1 class="mt-[10px] w-full">New Message</h1>
     </div>
+
+    {{--<x-section>
+        --}}{{--@if ($messageContextData !== null)
+            In reply to
+            <x-user.avatar :user="$message->from"/>
+            who wrote:<br><br>
+            <div>
+                " . parseTopicCommentPHPBB($messageContextPayload) . "
+            </div>
+        @endif--}}{{--
+        <x-form :action="route('message.store')">
+            <x-input.text attribute="recipient" required />
+            <x-input.text attribute="subject" required />
+            <x-input.textarea attribute="message" maxlength="2000" shortcode required />
+            <x-form-actions requiredFields />
+        </x-form>
+    </x-section>--}}
 
     <form action="{{ route('message.store') }}" method='post' x-data='{ isValid: true }'>
         {{ csrf_field() }}

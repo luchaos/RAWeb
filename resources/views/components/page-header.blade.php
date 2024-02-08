@@ -1,11 +1,12 @@
-<?php
-$large ??= true;
-$navigation ??= false;
-$breakpoint ??= 'lg';
-$avatar ??= null;
-$background ??= null;
-$titleActivity ??= null;
-?>
+@props([
+    'large' => true,
+    'navigation' => false,
+    'breakpoint' => 'lg',
+    'avatar' => null,
+    'background' => null,
+    'titleActivity' => null,
+])
+
 <x-section :class="($class ?? false) ? $class : 'pt-5 px-5 lg:px-0'">
     <x-section-background
         :image="$background"
@@ -33,7 +34,7 @@ $titleActivity ??= null;
                                 @if($large)
                                     {{ $subTitle ?? null }}
                                     {{-- keep this class off the navbar to prevent dangling margin --}}
-                                    <div class="mb-2 row vw-100 lg:w-auto" style="height:40px;padding-left:15px;padding-right:15px">
+                                    <div class="mb-2 vw-full lg:w-auto" style="height:40px">
                                         @if($navigation)
                                             {{ $navigation }}
                                         @endif
@@ -57,7 +58,7 @@ $titleActivity ??= null;
                             </x-slot>
                         </x-section-header>
                         @if($large)
-                            <div class="flex justify-between items-center overflow-x-scroll" style="height:49px">
+                            <div class="flex justify-between items-center h-[55px] px-3">
                                 {{ $stats ?? null }}
                                 @if($actions ?? null)
                                     <div class="ml-auto flex gap-1 justify-end">

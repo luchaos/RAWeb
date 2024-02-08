@@ -45,7 +45,7 @@ $thisAuthor = $commentData['Author'];
 <x-app-layout pageTitle="Edit post">
     <?php
     echo "<div class='navpath'>";
-    echo "<a href='forum.php'>Forum Index</a>";
+    echo "<a href='forum.php'>Forums</a>";
     echo " &raquo; <a href='/forum.php?c=$thisCategoryID'>$thisCategoryName</a>";
     echo " &raquo; <a href='/viewforum.php?f=$thisForumID'>$thisForumTitle</a>";
     echo " &raquo; <a href='/viewtopic.php?t=$thisTopicID'>$thisTopicTitle</a>";

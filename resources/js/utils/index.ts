@@ -9,6 +9,7 @@ export * from './initializeTextareaCounter';
 export * from './injectShortcode';
 export * from './loadPostPreview';
 export * from './safeRequestIdleCallback';
+export * from './scrollToGridTop';
 export * from './theme';
 export * from './toggleUserCompletedSetsVisibility';
 export * from './updateUrlParameter';

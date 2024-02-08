@@ -193,7 +193,7 @@ class System extends BaseModel implements HasMedia
         return route('system.game.index', [$this->id, $this->getSlugAttribute()]);
     }
 
-    public function getIconUrlAttribute(): string
+    public function getLogoAttribute(): string
     {
         return asset('assets/images/system/' . Str::kebab(str_replace('/', '', Str::lower($this->name_short))) . '.png');
     }
@@ -203,6 +203,11 @@ class System extends BaseModel implements HasMedia
     public function getIdAttribute(): ?int
     {
         return $this->attributes['ID'] ?? null;
+    }
+
+    public function getNameAttribute(): string
+    {
+        return $this->attributes['Name'];
     }
 
     // == mutators
@@ -224,7 +229,7 @@ class System extends BaseModel implements HasMedia
      */
     public function games(): HasMany
     {
-        return $this->hasMany(Game::class, 'ConsoleID');
+        return $this->hasMany(Game::class, 'ConsoleID', 'ID');
     }
 
     /**
@@ -242,7 +247,7 @@ class System extends BaseModel implements HasMedia
      */
     public function achievements(): HasManyThrough
     {
-        return $this->hasManyThrough(Achievement::class, Game::class);
+        return $this->hasManyThrough(Achievement::class, Game::class, 'ConsoleID', 'GameID');
     }
 
     // == scopes

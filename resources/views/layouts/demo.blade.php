@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <x-head
-    :page-title="$pageTitle"
-    :page-description="$pageDescription"
-    :page-image="$pageImage"
-    :page-type="$pageType"
-    :permalink="$permalink"
-    :canonical-url="$permalink"
+    :page-title="$pageTitle ?? null"
+    :page-description="$pageDescription ?? null"
+    :page-image="$pageImage ?? null"
+    :page-type="$pageType ?? null"
+    :permalink="$permalink ?? null"
+    :canonical-url="$permalink ?? null"
 />
 <body
     data-scheme="{{ request()->cookie('scheme', '') }}"
@@ -35,20 +35,16 @@
     <x-slot name="header">
         {{ $header ?? '' }}
     </x-slot>
-    <x-slot name="breadcrumb">
-        {{ $breadcrumb ?? '' }}
-    </x-slot>
     @if(!empty($breadcrumb))
         <x-slot name="breadcrumb">
             {{ $breadcrumb }}
         </x-slot>
     @endif
-    <x-main :sidebarPosition="$sidebarPosition">
+    <x-main :sidebarPosition="$sidebarPosition ?? 'right'">
         <x-slot name="sidebar">
             {{ $sidebar ?? '' }}
         </x-slot>
         {{ $slot ?? '' }}
-        {{--            {!! $main ?? '' !!}--}}
     </x-main>
 </x-content>
 <footer>

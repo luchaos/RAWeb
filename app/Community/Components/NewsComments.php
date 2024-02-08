@@ -52,7 +52,7 @@ class NewsComments extends Grid
 
         $this->news = $news;
 
-        $query = $this->news->comments()->getQuery();
+        $query = $this->news->comments()->with('commentable', 'user')->getQuery();
 
         return $query;
     }

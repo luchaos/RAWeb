@@ -25,7 +25,7 @@ class MessageController extends Controller
         $input = Validator::validate(Arr::wrap(request()->post()), [
             'thread_id' => 'nullable|integer',
             'body' => 'required|string|max:60000',
-            'title' => 'required_without:thread_id|string|max:255',
+            'subject' => 'required_without:thread_id|string|max:255',
             'recipient' => 'required_without:thread_id|exists:UserAccounts,User',
         ]);
 
@@ -45,7 +45,7 @@ class MessageController extends Controller
             (new AddToMessageThreadAction())->execute($thread, $user, $input['body']);
         } else {
             $recipient = User::firstWhere('User', $input['recipient']);
-            $thread = (new CreateMessageThreadAction())->execute($user, $recipient, $input['title'], $input['body']);
+            $thread = (new CreateMessageThreadAction())->execute($user, $recipient, $input['subject'], $input['body']);
         }
 
         return redirect(route("message-thread.show", $thread->id))->with('success', __('legacy.success.message_send'));

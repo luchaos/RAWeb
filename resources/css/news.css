@@ -1,3 +1,20 @@
+.news-teaser {
+  height: var(--news-teaser-height);
+  content-visibility: auto;
+}
+
+.news-item {
+  background: none;
+}
+
+/*.lead {*/
+/*  font-size: $font-size-base;*/
+/*}*/
+
+.news-teaser .news-item {
+  height: var(--news-teaser-height);
+}
+
 span.news {
   padding: 6px 10px 10px;
   /*border-radius: 8px; */

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 
 class Comment extends BaseModel
@@ -76,6 +77,35 @@ class Comment extends BaseModel
     private function notImplementedException(): void
     {
         throw new Exception('Use derived comment model class in the comments() morphTo() relationship instead of ' . Comment::class . '. Add link attribute getters to the derived class. Use A dedicated controller for it and use the prepared actions.');
+    }
+
+    public function getIdAttribute(): ?int
+    {
+        return $this->attributes['ID'] ?? null;
+    }
+
+    public function getUserIdAttribute(): ?int
+    {
+        return $this->attributes['UserID'] ?? null;
+    }
+
+    public function getBodyAttribute(): ?string
+    {
+        return $this->attributes['Payload'] ?? null;
+    }
+
+    public function getCreatedAtAttribute(): ?Carbon
+    {
+        return isset($this->attributes['Submitted'])
+            ? Carbon::parse($this->attributes['Submitted'])
+            : null;
+    }
+
+    public function getUpdatedAtAttribute(): ?Carbon
+    {
+        return isset($this->attributes['Edited'])
+            ? Carbon::parse($this->attributes['Edited'])
+            : null;
     }
 
     // == mutators
