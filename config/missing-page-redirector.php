@@ -45,7 +45,8 @@ return [
          */
         '/login.php' => '/login',
         '/createaccount.php' => '/register',
-        '/resetPassword.php' => '/password/reset',
+        '/resetPassword.php' => '/password/forgot',
+        '/validateEmail.php' => '/email/verify',
 
         /*
          * achievements
@@ -142,7 +143,6 @@ return [
         // '/feed.php' => '/',
         // '/reorderSiteAwards.php' => '',
         // '/submitnews.php' => '',
-        // '/validateEmail.php' => '',
     ],
 
 ];

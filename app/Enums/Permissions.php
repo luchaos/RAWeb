@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
+/**
+ * @deprecated
+ */
 abstract class Permissions
 {
     public const Spam = -2;

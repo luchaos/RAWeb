@@ -86,7 +86,6 @@ $user = request()->user();
         <x-dropdown-item :link="route('message-thread.index')">{{ __res('message') }}</x-dropdown-item>
         <div class="dropdown-divider"></div>
         <x-dropdown-item :link="url('reorderSiteAwards.php')">Reorder Site Awards</x-dropdown-item>
-        {{--<x-dropdown-item :link="route('settings')">{{ __res('setting') }}</x-dropdown-item>--}}
         <x-dropdown-item :link="url('controlpanel.php')">Settings</x-dropdown-item>
         <div class="dropdown-divider"></div>
         {{--<x-form :action="route('logout')">--}}

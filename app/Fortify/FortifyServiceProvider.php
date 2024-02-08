@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Providers;
+namespace App\Fortify;
 
 use App\Actions\CreateNewUser;
 use App\Actions\ResetUserPassword;
 use App\Actions\UpdateUserPassword;
 use App\Actions\UpdateUserProfileInformation;
 use App\Enums\Permissions;
+use App\Fortify\Extensions\PasswordResetLinkController;
 use App\Http\Responses\LoginResponse;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -34,7 +35,6 @@ use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
 use Laravel\Fortify\Http\Controllers\EmailVerificationPromptController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
-use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 use Laravel\Fortify\Http\Controllers\RecoveryCodeController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;

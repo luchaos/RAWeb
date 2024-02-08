@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Actions\DeleteAvatarAction;
+use App\Actions\DeleteAvatar;
 use App\Models\User;
 use App\Support\MediaLibrary\RejectedHashes;
 use Illuminate\Console\Command;
@@ -16,7 +16,7 @@ class CleanupAvatars extends Command
     protected $description = 'Delete rejected avatars';
 
     public function __construct(
-        private DeleteAvatarAction $deleteAvatarAction
+        private DeleteAvatar $deleteAvatar
     ) {
         parent::__construct();
     }
@@ -36,7 +36,7 @@ class CleanupAvatars extends Command
                 /** @var User $user */
                 $user = $media->model;
                 $this->info('  Deleting avatar of ' . $user->username . ': ' . $media->getFullUrl());
-                $this->deleteAvatarAction->execute($user);
+                $this->deleteAvatar->execute($user);
             }
 
             $this->info(' ');

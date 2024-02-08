@@ -7,7 +7,7 @@
                     <span>RAWeb</span>
                 </a>
 
-                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                <p class="mt-2 text-xs text-gray-500">
                     v{{ config('app.version') }}
                 </p>
             </div>

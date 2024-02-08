@@ -46,6 +46,8 @@ class UserFactory extends Factory
 
             // nullable
             'APIKey' => 'apiKey',
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
         ];
     }
@@ -53,7 +55,7 @@ class UserFactory extends Factory
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
-            // 'email_verified_at' => null,
+            'email_verified_at' => null,
             'Permissions' => Permissions::Unregistered,
         ]);
     }

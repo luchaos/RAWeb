@@ -55,36 +55,38 @@ class Handler extends ExceptionHandler
     {
         $context = parent::buildExceptionContext($e);
 
-        $request = request();
-        if ($request) {
-            $context['url'] = $request->url();
+        if (!app()->runningInConsole()) {
+            $request = request();
+            if ($request) {
+                $context['url'] = $request->url();
 
-            // never log raw passwords
-            $params = Arr::except($request->all(), $this->dontFlash);
+                // never log raw passwords
+                $params = Arr::except($request->all(), $this->dontFlash);
 
-            // extract the user and token parameters for API calls
-            if (str_ends_with($context['url'], 'dorequest.php')) {
-                unset($params['u']);
-                unset($params['t']);
+                // extract the user and token parameters for API calls
+                if (str_ends_with($context['url'], 'dorequest.php')) {
+                    unset($params['u']);
+                    unset($params['t']);
 
-                $method = $params['r'] ?? '';
-                if ($method === 'login') {
-                    unset($params['p']);
+                    $method = $params['r'] ?? '';
+                    if ($method === 'login') {
+                        unset($params['p']);
+                    }
+                } elseif (str_contains($context['url'], '/API/')) {
+                    unset($params['z']);
+                    unset($params['y']);
                 }
-            } elseif (str_contains($context['url'], '/API/')) {
-                unset($params['z']);
-                unset($params['y']);
-            }
 
-            // truncate long parameters
-            foreach ($params as $k => $p) {
-                if (is_string($p) && strlen($p) > 20) {
-                    $params[$k] = substr($p, 0, 15) . "...";
+                // truncate long parameters
+                foreach ($params as $k => $p) {
+                    if (is_string($p) && strlen($p) > 20) {
+                        $params[$k] = substr($p, 0, 15) . "...";
+                    }
                 }
-            }
 
-            // capture any remaining parameters
-            $context['params'] = http_build_query($params);
+                // capture any remaining parameters
+                $context['params'] = http_build_query($params);
+            }
         }
 
         return $context;

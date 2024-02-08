@@ -1,24 +1,35 @@
+@props([
+    'model' => null,
+    'attribute' => null,
+    'fieldId' => null,
+    'help' => null,
+    'inline' => false,
+])
 <x-form-field
-    :model="$model ?? null"
-    :attribute="$attribute ?? null"
-    :fieldId="$fieldId ?? null"
-    :help="$help ?? null"
-    :inline="$inline ?? false"
+    :model="$model"
+    :attribute="$attribute"
+    :fieldId="$fieldId"
+    :help="$help"
+    :inline="$inline"
 >
     <x-slot name="label">
-        {{ $label ?? __('validation.attributes.'.strtolower($attribute)) }} {{ !empty($required) ? '*' : '' }}
+        {{ $label ?? __('validation.attributes.'.strtolower($attribute)) }} {{ $attributes->get('required') ? '*' : '' }}
     </x-slot>
-    <input autocomplete="off"
-        type="{{ $type ?? 'text' }}" id="{{ $fieldId ?? $attribute }}" name="{{ $attribute }}"
-        class="form-control {{ $errors && $errors->has($attribute) ? 'is-invalid' : '' }}"
-        {{ !empty($disabled) ? 'disabled' : '' }} {{ !empty($readonly) ? 'readonly' : '' }}
-        {{ !empty($required) ? 'required' : '' }}
-        value="{{ old($attribute, !empty($model) ? $model->getAttribute($attribute) : null)}}"
-        @if($errors && $errors->has($attribute))
-        aria-describedby="error-{{ $fieldId ?? $attribute }}"
-        @endif
-        @if($placeholder ?? false)
-        placeholder="{{ $placeholder === true ? __('validation.attributes.'.strtolower($attribute)) : $placeholder }}"
-        @endif
+    <input
+        {{ $attributes->merge([
+            'id' => $fieldId ?? $attribute,
+            'name' => $attribute,
+            'value' => old($attribute, !empty($model) ? $model->getAttribute($attribute) : null),
+            'placeholder' => ($placeholder ?? false) === true ? __('validation.attributes.'.strtolower($attribute)) : ($placeholder ?? false),
+            'class' => "form-control " . ($errors && $errors->has($attribute) ? 'is-invalid' : ''),
+            'aria-describedby' => $errors && $errors->has($attribute) ? 'error-' . ($fieldId ?? $attribute) : false,
+        ])->except([
+            // exclude attributes that are meant for the form field above
+            'model',
+            'attribute',
+            'fieldId',
+            'help',
+            'inline',
+        ]) }}
     >
 </x-form-field>

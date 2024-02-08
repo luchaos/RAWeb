@@ -9,12 +9,8 @@
 ])
 
 <?php
-use Jenssegers\Agent\Agent;
-
 $id = uniqid();
-
-$agent = new Agent();
-$canUseDesktopHref = !$agent->isMobile();
+$canUseDesktopHref = !Jenssegers\Agent\Facades\Agent::isMobile();
 ?>
 
 <div class="dropdown {{ $class ?? '' }} {{ ($active ?? false) ? 'active' : '' }}">

@@ -1,4 +1,3 @@
-<button class="btn {{ $class ?? null }}" type="{{ $type ?? 'button' }}">
-    {{--x-on:click.prevent="$dispatch('alpine-event', { foo: 'bar' })"--}}
+<button {{ $attributes->merge(['type' => 'button', 'class' => 'btn']) }}>
     {{ $slot ?? 'Submit' }}
 </button>

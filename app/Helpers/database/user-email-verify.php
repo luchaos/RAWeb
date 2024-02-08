@@ -2,8 +2,12 @@
 
 use App\Enums\Permissions;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+/**
+ * @deprecated
+ */
 function generateEmailVerificationToken(string $user): ?string
 {
     $emailCookie = Str::random(16);
@@ -72,7 +76,10 @@ function validateEmailVerificationToken(string $emailCookie, ?string &$user): bo
     return false;
 }
 
-function deleteExpiredEmailVerificationTokens(): bool
+/**
+ * @deprecated
+ */
+function deleteExpiredEmailVerificationTokens(): void
 {
-    return (bool) s_mysql_query("DELETE FROM EmailConfirmations WHERE Expires <= DATE(NOW()) ORDER BY Expires DESC");
+    DB::statement("DELETE FROM EmailConfirmations WHERE Expires <= DATE(NOW()) ORDER BY Expires DESC");
 }

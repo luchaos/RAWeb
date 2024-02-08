@@ -212,15 +212,6 @@ return [
 
     'providers' => ServiceProvider::defaultProviders()->merge([
         /*
-         * Package Service Providers...
-         */
-        Jenssegers\Agent\AgentServiceProvider::class,
-
-        /*
-        * Application Service Providers...
-        */
-
-        /*
          * Api & Connect
          * Come first to make sure subdomain routes are registered first
          */
@@ -252,7 +243,7 @@ return [
         App\Support\Sync\SyncServiceProvider::class,
 
         /*
-         * Site Providers
+         * Application Providers
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -281,7 +272,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Agent' => Jenssegers\Agent\Facades\Agent::class,
     ])->toArray(),
 
 ];

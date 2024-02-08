@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Models\User;
+use App\Support\Rules\CtypeAlnum;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -22,21 +23,28 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            'username' => ['required', 'string', 'max:255'],
+            'username' => [
+                'required',
+                'unique:UserAccounts,User',
+                'min:4',
+                'max:20',
+                new CtypeAlnum(),
+            ],
             'email' => [
                 'required',
-                'string',
-                'email',
+                'email:filter',
+                'confirmed',
                 'max:255',
-                Rule::unique(User::class),
+                'unique:users',
             ],
-            'password' => $this->passwordRules(),
+            'password' => ['required', 'string', Password::default(), 'confirmed', 'different:username'],
+            'terms' => ['accepted', 'required'],
         ])->validate();
 
         return User::create([
-            'username' => $input['username'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
+            'User' => $input['username'],
+            'EmailAddress' => $input['email'],
+            'Password' => Hash::make($input['password']),
         ]);
     }
 }

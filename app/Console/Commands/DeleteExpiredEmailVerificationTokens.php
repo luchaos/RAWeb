@@ -7,6 +7,9 @@ namespace App\Console\Commands;
 use Exception;
 use Illuminate\Console\Command;
 
+/**
+ * @deprecated
+ */
 class DeleteExpiredEmailVerificationTokens extends Command
 {
     protected $signature = 'ra:site:user:delete-expired-email-verification-tokens';

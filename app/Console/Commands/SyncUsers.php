@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Actions\DeleteAvatarAction;
-use App\Actions\UpdateAvatarAction;
+use App\Actions\DeleteAvatar;
+use App\Actions\UpdateAvatar;
 use App\Models\User;
 use App\Support\Sync\SyncTrait;
 use Exception;
@@ -21,8 +21,8 @@ class SyncUsers extends Command
     protected $description = 'Sync users';
 
     public function __construct(
-        private UpdateAvatarAction $updateAvatarAction,
-        private DeleteAvatarAction $deleteAvatarAction,
+        private UpdateAvatar $updateAvatar,
+        private DeleteAvatar $deleteAvatar,
     ) {
         parent::__construct();
     }
@@ -71,9 +71,9 @@ class SyncUsers extends Command
         if (!$this->option('no-media') && config('sync.media_path')) {
             $file = config('sync.media_path') . '/UserPic/' . $origin->User . '.png';
             if (file_exists($file)) {
-                $this->updateAvatarAction->execute($user, $file);
+                $this->updateAvatar->execute($user, $file);
             } else {
-                $this->deleteAvatarAction->execute($user);
+                $this->deleteAvatar->execute($user);
             }
         }
 

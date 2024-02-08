@@ -148,30 +148,6 @@ function mail_ses(string $to, string $subject = '(No subject)', string $message 
     }
 }
 
-function sendValidationEmail(string $user, string $email): bool
-{
-    // This generates and stores (and returns) a new email validation string in the DB.
-    $strValidation = generateEmailVerificationToken($user);
-    $strEmailLink = config('app.url') . "/validateEmail.php?v=$strValidation";
-
-    // $subject = "RetroAchievements.org - Confirm Email: $user";
-    $subject = "Welcome to RetroAchievements.org, $user";
-
-    $msg = "You or someone using your email address has attempted to sign up for an account at <a href='" . config('app.url') . "'>RetroAchievements.org</a><br>" .
-        "<br>" .
-        "If this was you, please click the following link to confirm this email address and complete sign up:<br>" .
-        "<br>" .
-        "&nbsp; &nbsp; &nbsp; &nbsp; <a href='$strEmailLink'>$strEmailLink</a><br>" .
-        "<br>" .
-        "If this wasn't you, please ignore this email.<br>" .
-        "<br>" .
-        "Thanks! And hope to see you on the forums!<br>" .
-        "<br>" .
-        "-- Your friends at <a href='" . config('app.url') . "'>RetroAchievements.org</a><br>";
-
-    return mail_utf8($email, $subject, $msg);
-}
-
 function sendFriendEmail(string $user, string $email, int $type, string $friend): bool
 {
     if ($user === $friend) {
@@ -372,20 +348,6 @@ function SendPrivateMessageEmail(
         "Click $link to reply!<br>" .
         "Thanks! And hope to see you on the forums!<br>" .
         "<br>" .
-        "-- Your friends at RetroAchievements.org<br>";
-
-    return mail_utf8($email, $emailTitle, $msg);
-}
-
-function SendPasswordResetEmail(string $user, string $email, string $token): bool
-{
-    $emailTitle = "Password Reset Request";
-    $link = "<a href='" . config('app.url') . "/resetPassword.php?u=$user&amp;t=$token'>Reset your password</a>";
-
-    $msg = "Hello $user!<br>" .
-        "Your account has requested a password reset:<br>" .
-        "$link<br>" .
-        "Thanks!<br>" .
         "-- Your friends at RetroAchievements.org<br>";
 
     return mail_utf8($email, $emailTitle, $msg);
